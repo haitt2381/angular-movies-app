@@ -1,0 +1,70 @@
+<div class="drawer lg:drawer-open sticky top-0">
+    <input id="my-drawer-2" type="checkbox" class="drawer-toggle"/>
+    <div class="drawer-content flex flex-col items-center justify-center">
+        <!-- Page content here -->
+        <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+
+    </div>
+    <div class="drawer-side">
+        <label for="my-drawer-2" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 h-full text-base-content capitalize">
+            <!-- Sidebar content here -->
+            <li>
+                <a class="menu-title">Discover</a>
+                <ul class="text-accent">
+                    <li>
+                      <span>
+                          <fa-icon [icon]="faHeart"></fa-icon> Popular
+                      </span>
+                    </li>
+                    <li>
+                        <span>
+                          <fa-icon [icon]="faFire"></fa-icon> Top Rated
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                          <fa-icon [icon]="faCalendar"></fa-icon> Upcoming
+                        </span>
+                    </li>
+                </ul>
+            </li>
+            <li></li>
+            <li>
+                <a class="menu-title">Genres</a>
+                <ul>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start">
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
+                            <span class="label-text text-accent">&nbsp; Action</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start">
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
+                            <span class="label-text text-accent">&nbsp; Adventure</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start">
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
+                            <span class="label-text text-accent">&nbsp; Animation</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start">
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
+                            <span class="label-text text-accent">&nbsp; Animation</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start">
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
+                            <span class="label-text text-accent">&nbsp; Animation</span>
+                        </label>
+                    </div>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
