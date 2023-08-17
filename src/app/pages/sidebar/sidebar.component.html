@@ -12,21 +12,21 @@
             <li>
                 <a class="menu-title">Discover</a>
                 <ul class="text-accent">
-                    <li>
-                      <span>
-                          <fa-icon [icon]="faHeart"></fa-icon> Popular
-                      </span>
-                    </li>
-                    <li>
-                        <span>
-                          <fa-icon [icon]="faFire"></fa-icon> Top Rated
-                        </span>
-                    </li>
-                    <li>
-                        <span>
-                          <fa-icon [icon]="faCalendar"></fa-icon> Upcoming
-                        </span>
-                    </li>
+                    <div class="ps-1 cursor-pointer" 
+                         [ngClass]="{'font-bold': Discover.POPULAR === discoverActive}" 
+                         (click)="onDiscoverChange(Discover.POPULAR)">
+                      <fa-icon [icon]="faHeart"></fa-icon> Popular
+                    </div>
+                    <div class="mt-4 ps-1 cursor-pointer"
+                         [ngClass]="{'font-bold': Discover.TOP_RATED === discoverActive}"
+                         (click)="onDiscoverChange(Discover.TOP_RATED)">
+                      <fa-icon [icon]="faFire"></fa-icon> Top Rated
+                    </div>
+                    <div class="mt-4 ps-1 cursor-pointer"
+                         [ngClass]="{'font-bold': Discover.UPCOMING === discoverActive}"
+                         (click)="onDiscoverChange(Discover.UPCOMING)">
+                      <fa-icon [icon]="faCalendar"></fa-icon> Upcoming
+                    </div>
                 </ul>
             </li>
             <li></li>

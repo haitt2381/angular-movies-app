@@ -1,26 +1,24 @@
-<h1 class="font-bold uppercase text-xl">Upcoming</h1>
+<h1 class="font-bold uppercase text-xl">{{discover.replaceAll('_', ' ')}}</h1>
 <h3 class="font-bold uppercase opacity-50">Category</h3>
 
 <div class="flex flex-wrap">
-    <div class="card w-64 bg-base-100 shadow ms-4 mt-4 text-center hover:shadow-accent/75 hover:cursor-pointer" *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-        <figure><img src="https://photo2.tinhte.vn/data/attachment-files/2023/08/6523986_rsz_spiderverse2_poster_4.jpg" alt="Shoes" /></figure>
+    <div class="card w-64 bg-base-100 shadow ms-4 mt-4 text-center hover:shadow-accent/75 hover:cursor-pointer" *ngFor="let movie of movies">
+        <figure><img [src]='"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/"+movie.poster_path' alt="Shoes" /></figure>
         <div class="card-body p-4">
             <p class="text-ellipsis overflow-hidden font-semibold uppercase">
-                Shoes Shoes ShoesShoes ShoesShoes Shoes
+                {{movie.title}}
             </p>
-            <div class="rating rating-sm flex justify-center">
-                <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400" />
-                <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400" checked />
-                <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400" />
-                <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400" />
-                <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400" />
+            <div class="rating rating-sm rating-half flex justify-center">
+                <input type="radio" [name]="movie.id" class="rating-hidden" />
+                <input 
+                        type="radio" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" disabled
+                        class="bg-orange-400 mask mask-star-2"
+                        [name]="movie.id"  
+                        [ngClass]="(i % 2 !== 0) ? ['mask-half-1'] : ['mask-half-2']" 
+                        [checked]="Math.round(movie.vote_average) === i"/>
             </div>
         </div>
     </div>
-
-    
-    
-    
     
 </div>
 
