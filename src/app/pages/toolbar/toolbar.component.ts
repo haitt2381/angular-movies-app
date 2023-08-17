@@ -7,7 +7,6 @@ import {faMagnifyingGlass, faMoon, faSun} from "@fortawesome/free-solid-svg-icon
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
-
   protected readonly faMagnifyingGlass = faMagnifyingGlass;
   protected readonly faSun = faSun;
   protected readonly faMoon = faMoon;

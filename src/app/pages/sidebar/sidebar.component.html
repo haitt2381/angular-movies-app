@@ -34,33 +34,9 @@
                 <a class="menu-title">Genres</a>
                 <ul>
                     <div class="form-control">
-                        <label class="label cursor-pointer justify-start">
+                        <label class="label cursor-pointer justify-start" *ngFor="let genre of genres">
                             <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
-                            <span class="label-text text-accent">&nbsp; Action</span>
-                        </label>
-                    </div>
-                    <div class="form-control">
-                        <label class="label cursor-pointer justify-start">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
-                            <span class="label-text text-accent">&nbsp; Adventure</span>
-                        </label>
-                    </div>
-                    <div class="form-control">
-                        <label class="label cursor-pointer justify-start">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
-                            <span class="label-text text-accent">&nbsp; Animation</span>
-                        </label>
-                    </div>
-                    <div class="form-control">
-                        <label class="label cursor-pointer justify-start">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
-                            <span class="label-text text-accent">&nbsp; Animation</span>
-                        </label>
-                    </div>
-                    <div class="form-control">
-                        <label class="label cursor-pointer justify-start">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
-                            <span class="label-text text-accent">&nbsp; Animation</span>
+                            <span class="label-text text-accent">&nbsp; {{genre.name}}</span>
                         </label>
                     </div>
                 </ul>
