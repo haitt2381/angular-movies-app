@@ -7,7 +7,7 @@
     </div>
     <div class="drawer-side">
         <label for="my-drawer-2" class="drawer-overlay"></label>
-        <ul class="menu p-4 w-80 h-full text-base-content capitalize">
+        <ul class="menu p-4 w-80 min-h-full text-base-content capitalize">
             <!-- Sidebar content here -->
             <li>
                 <a class="menu-title">Discover</a>
@@ -35,7 +35,7 @@
                 <ul>
                     <div class="form-control">
                         <label class="label cursor-pointer justify-start" *ngFor="let genre of genres">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent"/>
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent" [value]="genre.id" (change)="onGenreChange($event)"/>
                             <span class="label-text text-accent">&nbsp; {{genre.name}}</span>
                         </label>
                     </div>

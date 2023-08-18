@@ -1,24 +1,38 @@
-<h1 class="font-bold uppercase text-xl">{{discover.replaceAll('_', ' ')}}</h1>
-<h3 class="font-bold uppercase opacity-50">Category</h3>
+<div class="flex justify-between">
+    <div>
+        <h1 class="font-bold uppercase text-xl">{{discover.replaceAll('_', ' ')}}</h1>
+        <h3 class="font-bold uppercase opacity-50">Category</h3>
+    </div>
+    <div>
+        <select class="select select-accent w-full select-sm mt-2 capitalize" (change)="onSortChange($event)">
+            <option value="" selected>Sort</option>
+            <option value="popularity.desc">Popularity</option>
+            <option value="vote_average.desc">Votes Average</option>
+            <option value="primary_release_date.desc">Release Date</option>
+            <option value="vote_count.desc">Vote count</option>
+        </select>
+    </div>
+</div>
+
 
 <div class="flex flex-wrap">
-    <div class="card w-64 bg-base-100 shadow ms-4 mt-4 text-center hover:shadow-accent/75 hover:cursor-pointer" *ngFor="let movie of movies">
-        <figure><img [src]='"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/"+movie.poster_path' alt="Shoes" /></figure>
+    <div class="card flex-auto m-4 w-64 bg-base-100 shadow text-center hover:shadow-accent/75 hover:cursor-pointer" *ngFor="let movie of movies">
+        <figure><img [src]='"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/"+movie.poster_path' alt="Shoes" (error)="onImageError($event)"/></figure>
         <div class="card-body p-4">
             <p class="text-ellipsis overflow-hidden font-semibold uppercase">
                 {{movie.title}}
             </p>
             <div class="rating rating-sm rating-half flex justify-center">
                 <input type="radio" [name]="movie.id" class="rating-hidden" />
-                <input 
+                <input
                         type="radio" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" disabled
                         class="bg-orange-400 mask mask-star-2"
-                        [name]="movie.id"  
-                        [ngClass]="(i % 2 !== 0) ? ['mask-half-1'] : ['mask-half-2']" 
+                        [name]="movie.id"
+                        [ngClass]="(i % 2 !== 0) ? ['mask-half-1'] : ['mask-half-2']"
                         [checked]="Math.round(movie.vote_average) === i"/>
             </div>
         </div>
     </div>
-    
+
 </div>
 

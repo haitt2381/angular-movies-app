@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import * as Tool from "../shared/util/tool";
 import {Discover} from "../shared/enum/discover";
+import {GetMoviesRequest} from "../shared/model/get-movies-request";
 
 @Injectable({
     providedIn: 'root'
@@ -17,9 +18,20 @@ export class MovieService {
     }
     
     getPopularMovies(discover: string, page?: number): Observable<any> {
-        page = page ? page : 1;
+        page = page ?? 1;
         discover = Tool.checkEnum(Discover, discover, Discover.POPULAR);
         let headers = this.authService.getHeaderWithAuth();
         return this.http.get(`https://api.themoviedb.org/3/movie/${discover}?language=en-US&page=${page}`, {headers})
+    }
+    
+    getMovies(request: GetMoviesRequest): Observable<any> {
+        let headers = this.authService.getHeaderWithAuth();
+        let params = new HttpParams()
+            .append('language', 'en-US')
+            .append('page', request.page ? request.page : 1)
+            .append('sort_by', request.sort_by!)
+            .append('with_genres', request.genre_id!)
+        ;
+        return this.http.get(`https://api.themoviedb.org/3/discover/movie`, {headers, params})
     }
 }

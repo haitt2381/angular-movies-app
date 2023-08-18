@@ -1,9 +1,15 @@
 <div class="navbar justify-end">
-    <button class="btn btn-sm btn-circle btn-outline">
-        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-    </button>
+    <div>
+        <input type="text" placeholder="Type here" class="input input-bordered input-accent w-full max-w-xs input-sm"
+               [ngClass]="{'hidden': !isExpanded }" (blur)="collapseSearch($event)" id="searchInput" (keydown)="onSearch($event)"
+        />
+        <button class="btn btn-sm btn-circle btn-outline btn-accent"
+                [ngClass]="{'hidden': isExpanded}" (focus)="expandSearch();">
+            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+        </button>
+    </div>
     <label class="swap swap-rotate ms-5">
-        <input type="checkbox" />
+        <input type="checkbox" (change)="onChangeTheme()" />
         <fa-icon class="swap-on fill-current text-yellow-500" [icon]="faSun" size="xl"></fa-icon>
         <fa-icon class="swap-off fill-current" [icon]="faMoon" size="xl"></fa-icon>
     </label>

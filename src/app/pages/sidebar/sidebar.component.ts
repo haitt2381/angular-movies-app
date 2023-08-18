@@ -39,6 +39,14 @@ export class SidebarComponent implements OnInit{
         }).then(); 
     }
 
+    onGenreChange($event: Event) {
+         let genreSelected = ($event.target as HTMLInputElement).value;
+        this.router.navigate([], {
+            queryParams: {discover: null, genre_id: genreSelected},
+            queryParamsHandling: 'merge', // or 'preserve'
+        }).then();
+    }
+
     protected readonly faHeart = faHeart;
     protected readonly faFire = faFire;
     protected readonly faCalendar = faCalendar;
