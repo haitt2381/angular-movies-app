@@ -24,14 +24,30 @@ export class MovieService {
         return this.http.get(`https://api.themoviedb.org/3/movie/${discover}?language=en-US&page=${page}`, {headers})
     }
     
+    getRecommendationMovies(movieId: number | string): Observable<any> {
+        let headers = this.authService.getHeaderWithAuth();
+        return this.http.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations`, {headers})
+    }
+    
     getMovies(request: GetMoviesRequest): Observable<any> {
         let headers = this.authService.getHeaderWithAuth();
         let params = new HttpParams()
             .append('language', 'en-US')
-            .append('page', request.page ? request.page : 1)
-            .append('sort_by', request.sort_by!)
-            .append('with_genres', request.genre_id!)
-        ;
+            .append('page', request.page ? request.page : 1);
+        if(request.sort_by) {
+            params.append('sort_by', request.sort_by)
+        }
+        
+        if(request.genre_id) {
+            params.append('with_genres', request.genre_id)
+        }
+        
         return this.http.get(`https://api.themoviedb.org/3/discover/movie`, {headers, params})
     }
+    
+    getMovie(id: string | null): Observable<any> {
+        let headers = this.authService.getHeaderWithAuth();
+        return  this.http.get(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, {headers});
+    }
+    
 }

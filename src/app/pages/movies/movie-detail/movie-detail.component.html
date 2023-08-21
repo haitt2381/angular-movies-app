@@ -1,0 +1,67 @@
+<div class="card bg-base-100 shadow-sm grid grid-cols-3 gap-4">
+    <div class="col-span-1 relative">
+        <img class="object-cover h-full w-full" [src]='"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/"+movie?.poster_path' alt="Movie"/>
+    </div>
+    <div class="card-body col-span-2 space-y-6 relative">
+        <div class="uppercase text-2xl font-bold">
+            <h2>{{movie?.title}}</h2>
+            <h3 class="text-sm opacity-50">{{movie?.tagline}}</h3>
+        </div>
+        <div class="flex justify-between">
+            <app-rating [vote_average]="movie.vote_average"></app-rating>
+            <div class="uppercase font-bold text-accent">
+                <p>{{movie.original_language}}/ {{movie.runtime}} MIN. / {{yearRelease}}</p>
+            </div>
+        </div>
+        <div>
+            <h3 class="uppercase font-bold">The Genres</h3>
+            <div class="flex">
+                <label class="label cursor-pointer justify-start" *ngFor="let genre of movie.genres">
+                    <input type="radio" [name]="genre.id" class="radio radio-sm radio-accent" [value]="genre.id" checked disabled/>
+                    <span class="label-text text-accent">&nbsp; {{genre.name}}</span>
+                </label>
+            </div>
+        </div>
+        <div>
+            <h3 class="uppercase font-bold">The Synopsis</h3>
+            <p class="opacity-50"> {{movie.overview}} </p>
+        </div>
+        <div>
+            <h3 class="uppercase font-bold">The Cast</h3>
+            <div class="flex overflow-x-auto">
+                <div class="avatar" *ngFor="let cast of casts">
+                    <div class="w-12 rounded-full">
+                        <img [src]="'https://www.themoviedb.org/t/p/w138_and_h175_face/' + cast.profile_path" (error)="onImageError($event)"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-actions justify-between">
+            <div class="space-x-2">
+                <button class="btn btn-outline btn-accent btn-sm capitalize" (click)="window.open(movie.homepage)"
+                ><fa-icon [icon]="faLink"></fa-icon> Website</button>
+                <button class="btn btn-outline btn-accent btn-sm" (click)="window.open('https://www.imdb.com/title/'+movie.imdb_id)"><fa-icon [icon]="faFilm"></fa-icon> IMDB</button>
+                <button class="btn btn-outline btn-accent btn-sm capitalize" (click)="onPlayVideoTrailer()">Trailer</button>
+            </div>
+
+            <button class="btn btn-accent btn-sm"
+                (click)="onBack()"
+            ><span class="transform rotate-90">&downarrow;</span> Back</button>
+        </div>
+    </div>
+</div>
+
+<div class="mt-6" *ngIf="moviesResponse?.results.length !== 0">
+    <h2 class="uppercase text-2xl font-bold">Recommended</h2>
+    <h3 class="uppercase text-md font-bold opacity-50">Movies</h3>
+    <div class="flex flex-wrap">
+        <app-movie class="flex-auto" [movie]="movieRecommended" *ngFor="let movieRecommended of moviesResponse?.results"></app-movie>
+    </div>
+</div>
+
+<dialog id="videoTrailerModal" class="modal relative">
+    <iframe id="iframeVideo" class="w-4/5 h-4/5 absolute" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>

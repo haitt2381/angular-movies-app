@@ -19,3 +19,8 @@ export function checkEnum(enumEntity: any, value: any, defaultEnumReturn?: any) 
     
     return value;
 }
+
+export function getRandomEl(array: any[]) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
+}

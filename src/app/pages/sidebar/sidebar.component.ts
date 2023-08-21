@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit{
     ngOnInit(): void {
         this.route.queryParamMap.subscribe(params => {
             let discoverParam = params.get("discover");
-            this.discoverActive = Tool.checkEnum(Discover, discoverParam, Discover.POPULAR);
+            this.discoverActive = Tool.checkEnum(Discover, discoverParam, '');
         })
         this.genresService.getGenres().subscribe(resp => {
             this.genres = resp['genres'];

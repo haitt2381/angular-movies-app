@@ -7,6 +7,7 @@ import {checkEnum} from "../../shared/util/tool";
 import {Movie} from "../../shared/model/movie";
 import {GetMoviesRequest} from "../../shared/model/get-movies-request";
 import {SortMovie} from "../../shared/enum/sort-movie";
+import {LoadingService} from "../../services/loading.service";
 
 @Component({
   selector: 'app-movies',
@@ -23,6 +24,7 @@ export class MoviesComponent implements OnInit {
   
   constructor(
       private movieService: MovieService,
+      private loadingService: LoadingService,
       private route: ActivatedRoute,
       private router: Router
   ) {
@@ -30,6 +32,7 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: GetMoviesRequest) => {
+      this.loadingService.startLoading();
       if(params.discover) {
         let discover = checkEnum(Discover, params.discover, Discover.POPULAR);
         this.discover = discover;
@@ -40,7 +43,6 @@ export class MoviesComponent implements OnInit {
         this.discover = '';
       }
     });
-    this.loadMoviesByDiscover(Discover.POPULAR, true);
   }
 
   private loadMoviesByDiscover(discover: string, isReloadPage: boolean,page?: number) {
@@ -58,16 +60,14 @@ export class MoviesComponent implements OnInit {
   private handleLoadMovies(isReloadPage: boolean, response: any) {
     this.isLoading = false;
     if (isReloadPage) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // optional, adds smooth scrolling
-      });
+      window.scrollTo(0, 0);
       this.moviesResponse = response;
       this.movies = this.moviesResponse.results;
     } else {
       this.moviesResponse = response;
       this.movies = this.movies.concat(this.moviesResponse.results);
     }
+    this.loadingService.stopLoading();
   }
 
   onSortChange($event: Event) {
@@ -79,10 +79,6 @@ export class MoviesComponent implements OnInit {
     }).then();
   }
 
-  onImageError($event: ErrorEvent) {
-    ($event.target as HTMLInputElement).src = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2//eeLmDSnF4bODqpbSrRCrjzmgJgD.jpg';
-  }
-
   @HostListener('window:scroll', ['$event'])
   onScroll() {
     if(this.isLoading) {
@@ -92,7 +88,7 @@ export class MoviesComponent implements OnInit {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
 
-    if (scrolled > scrollable - 2500) {
+    if (scrolled > scrollable - 1000) {
       this.isLoading = true;
       let nextPage = this.moviesResponse.page + 1;
       if(checkEnum(Discover, this.discover)) {

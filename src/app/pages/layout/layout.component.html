@@ -1,3 +1,4 @@
+<app-loading/>
 <div class="grid grid-cols-12 relative" [attr.data-theme]="theme">
     <div class="col-span-2">
         <app-sidebar/>
@@ -5,7 +6,7 @@
     <div class="col-span-10">
         <div class="w-11/12 m-auto">
             <app-toolbar/>
-            <app-movies/>
+            <router-outlet/>
         </div>
     </div>
 </div>
