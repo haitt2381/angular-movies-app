@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MovieService} from "../../../services/movie.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {MovieDetail} from "../../../shared/model/movieDetail";

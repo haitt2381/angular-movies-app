@@ -1,7 +1,7 @@
-<div class="rating rating-sm rating-half flex justify-center">
+<div class="rating rating-sm rating-half flex justify-center static">
     <input
             type="radio" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" disabled
-            class="bg-orange-400 mask mask-star-2"
+            class="bg-orange-400 mask mask-star-2 static"
             [name]="'rating' + id"
             [ngClass]="(i % 2 !== 0) ? ['mask-half-1'] : ['mask-half-2']"
             [checked]="Math.round(vote_average) === i"/>

@@ -10,7 +10,7 @@ import { MoviesComponent } from './pages/movies/movies.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToolbarComponent } from './pages/toolbar/toolbar.component';
 import { MovieDetailComponent } from './pages/movies/movie-detail/movie-detail.component';
-import { RatingComponent } from './pages/movies/rating/rating.component';
+import { RatingComponent } from './shared/UI/rating/rating.component';
 import { MovieComponent } from './pages/movies/movie/movie.component';
 import { LoadingComponent } from './shared/UI/loading/loading.component';
 import { ActorComponent } from './pages/actor/actor.component';
