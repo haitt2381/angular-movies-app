@@ -1,48 +1,38 @@
-<div class="drawer lg:drawer-open" style="background-color: red">
-    <input id="my-drawer-2" type="checkbox" class="drawer-toggle"/>
-    <div class="drawer-content flex flex-col items-center justify-center ">
-        <!-- Page content here -->
-        <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-    </div>
-    <div class="drawer-side fixed z-50" >
-        <label for="my-drawer-2" class="drawer-overlay" ></label>
-        <ul class="menu p-4  min-h-full text-base-content capitalize bg-red-100"> 
-            <!-- Sidebar content here -->
-            <li>
-                <a class="menu-title">Discover</a>
-                <ul class="text-accent">
-                    <div class="ps-1 cursor-pointer" 
-                         [ngClass]="{'font-bold': Discover.POPULAR === discoverActive}" 
-                         (click)="onDiscoverChange(Discover.POPULAR)">
-                      <fa-icon [icon]="faHeart"></fa-icon> Popular
-                    </div>
-                    <div class="mt-4 ps-1 cursor-pointer"
-                         [ngClass]="{'font-bold': Discover.TOP_RATED === discoverActive}"
-                         (click)="onDiscoverChange(Discover.TOP_RATED)">
-                      <fa-icon [icon]="faFire"></fa-icon> Top Rated
-                    </div>
-                    <div class="mt-4 ps-1 cursor-pointer"
-                         [ngClass]="{'font-bold': Discover.UPCOMING === discoverActive}"
-                         (click)="onDiscoverChange(Discover.UPCOMING)">
-                      <fa-icon [icon]="faCalendar"></fa-icon> Upcoming
-                    </div>
-                </ul>
-            </li>
-            <li></li>
-            <li>
-                <a class="menu-title">Genres</a>
-                <ul>
-                    <div class="form-control">
-                        <label class="label cursor-pointer justify-start" *ngFor="let genre of genres">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent" [value]="genre.id" 
-                                   (change)="onGenreChange($event)"
-                                   [checked]="genre.id == genreSelected"
-                            />
-                            <span class="label-text text-accent">&nbsp; {{genre.name}}</span>
-                        </label>
-                    </div>
-                </ul>
-            </li>
+<ul class="menu p-4 min-h-screen w-72 text-base-content capitalize bg-base-100">
+    <!-- Sidebar content here -->
+    <li>
+        <a class="menu-title">Discover</a>
+        <ul class="text-accent">
+            <div class="ps-1 cursor-pointer"
+                 [ngClass]="{'font-bold': Discover.POPULAR === discoverActive}"
+                 (click)="onDiscoverChange(Discover.POPULAR)">
+                <fa-icon [icon]="faHeart"></fa-icon> Popular
+            </div>
+            <div class="mt-4 ps-1 cursor-pointer"
+                 [ngClass]="{'font-bold': Discover.TOP_RATED === discoverActive}"
+                 (click)="onDiscoverChange(Discover.TOP_RATED)">
+                <fa-icon [icon]="faFire"></fa-icon> Top Rated
+            </div>
+            <div class="mt-4 ps-1 cursor-pointer"
+                 [ngClass]="{'font-bold': Discover.UPCOMING === discoverActive}"
+                 (click)="onDiscoverChange(Discover.UPCOMING)">
+                <fa-icon [icon]="faCalendar"></fa-icon> Upcoming
+            </div>
         </ul>
-    </div>
-</div>
+    </li>
+    <li></li>
+    <li>
+        <a class="menu-title">Genres</a>
+        <ul>
+            <div class="form-control">
+                <label class="label cursor-pointer justify-start" *ngFor="let genre of genres">
+                    <input type="radio" name="genres" class="radio radio-sm radio-accent" [value]="genre.id"
+                           (change)="onGenreChange($event)"
+                           [checked]="genre.id == genreSelected"
+                    />
+                    <span class="label-text text-accent">&nbsp; {{genre.name}}</span>
+                </label>
+            </div>
+        </ul>
+    </li>
+</ul>

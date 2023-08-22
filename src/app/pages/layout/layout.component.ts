@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ThemeService} from "../../services/theme.service";
+import {faBars, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-layout',
@@ -19,4 +20,7 @@ export class LayoutComponent implements OnInit {
       this.theme = value;
     })
   }
+
+  protected readonly faMagnifyingGlass = faMagnifyingGlass;
+  protected readonly faBars = faBars;
 }
