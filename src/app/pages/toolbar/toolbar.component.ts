@@ -1,4 +1,4 @@
-import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {faMagnifyingGlass, faMoon, faSun} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {ThemeService} from "../../services/theme.service";
@@ -10,7 +10,7 @@ import {ThemeService} from "../../services/theme.service";
 })
 export class ToolbarComponent {
   isExpanded : boolean = false;
-  timeEventId: number = 0;
+  timeEventId: any;
   
   constructor(
       private router: Router,
@@ -38,17 +38,10 @@ export class ToolbarComponent {
       searchValue = null;
     }
     if (($event as KeyboardEvent).key === 'Enter') {
-      this.router.navigate([], {
-        queryParams: {keyword: searchValue},
-        queryParamsHandling: 'merge', 
-      }).then();
+      this.router.navigate([], { queryParams: {query: searchValue} }).then();
     } else {
       this.timeEventId = setTimeout(() => {
-        this.router.navigate([], {
-          queryParams: {keyword: searchValue},
-          queryParamsHandling: 'merge',
-        }).then();
-        
+        this.router.navigate([], { queryParams: {query: searchValue} }).then();
       }, 1500)
     }
   }

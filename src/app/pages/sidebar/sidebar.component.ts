@@ -5,6 +5,7 @@ import {Genre} from "../../shared/model/genre";
 import {Discover} from "../../shared/enum/discover";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as Tool from "../../shared/util/tool";
+import {GetMoviesRequest} from "../../shared/model/get-movies-request";
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,7 @@ import * as Tool from "../../shared/util/tool";
 export class SidebarComponent implements OnInit{
     genres: Genre[] = [];
     discoverActive: string = Discover.POPULAR;
+    genreSelected: string = '';
     
     constructor(
         private genresService: GenresService,
@@ -23,9 +25,12 @@ export class SidebarComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.route.queryParamMap.subscribe(params => {
-            let discoverParam = params.get("discover");
-            this.discoverActive = Tool.checkEnum(Discover, discoverParam, '');
+        this.route.queryParams.subscribe((params: GetMoviesRequest) => {
+            this.discoverActive = Tool.checkEnum(Discover, params.discover);
+            this.genreSelected = '';
+            if(Tool.isEmpty(this.discoverActive)) {
+                this.genreSelected = params.genre_id + ''
+            }
         })
         this.genresService.getGenres().subscribe(resp => {
             this.genres = resp['genres'];
@@ -33,16 +38,13 @@ export class SidebarComponent implements OnInit{
     }
 
     onDiscoverChange(discover: Discover) {
-        this.router.navigate([], {
-            queryParams: {discover: discover},
-            queryParamsHandling: 'merge', // or 'preserve'
-        }).then(); 
+        this.router.navigate([], {queryParams: {discover: discover}}).then(); 
     }
 
     onGenreChange($event: Event) {
-         let genreSelected = ($event.target as HTMLInputElement).value;
+        let genreSelected = ($event.target as HTMLInputElement).value;
         this.router.navigate([], {
-            queryParams: {discover: null, genre_id: genreSelected},
+            queryParams: {discover: null, query: null, genre_id: genreSelected},
             queryParamsHandling: 'merge', // or 'preserve'
         }).then();
     }

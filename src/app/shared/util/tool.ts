@@ -1,15 +1,18 @@
 import {Router} from "@angular/router";
 
-export function roundDecimalNumber(input: number): number {
-    const decimalPart = input - Math.floor(input);
+export function navigate(router: Router, value: any, isMerge: boolean = true) {
+    router.navigate([], {
+        queryParams: {value},
+        queryParamsHandling: 'merge',
+    }).then();
+}
 
-    if (decimalPart >= 0.6) {
-        return Math.ceil(input);
-    } else if (decimalPart >= 0.4) {
-        return Math.floor(input) + 0.5;
-    } else {
-        return Math.floor(input);
+export function isEmpty(value: any) {
+    let valueTrim;
+    if(typeof value === 'string') {
+        valueTrim = value.trim();
     }
+    return value === null || value === undefined || valueTrim === '';
 }
 
 export function checkEnum(enumEntity: any, value: any, defaultEnumReturn?: any) {
@@ -23,4 +26,13 @@ export function checkEnum(enumEntity: any, value: any, defaultEnumReturn?: any) 
 export function getRandomEl(array: any[]) {
     const randomIndex = Math.floor(Math.random() * array.length);
     return array[randomIndex];
+}
+
+export function getEnumValue(enumEntity: any, key: string): string {
+    return enumEntity[key as keyof typeof enumEntity] || '';
+}
+
+export function capitalizeFirstLetter(value: string): string {
+    value = value.toLowerCase();
+    return value.charAt(0).toUpperCase() + value.slice(1);
 }

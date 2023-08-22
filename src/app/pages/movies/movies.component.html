@@ -4,12 +4,11 @@
         <h3 class="font-bold uppercase opacity-50">Category</h3>
     </div>
     <div>
-        <select class="select select-accent w-full select-sm mt-2 capitalize" (change)="onSortChange($event)">
+        <select class="select select-accent w-full select-sm mt-2 capitalize"
+                (change)="onSortChange($event)"
+                [disabled]="discover">
             <option value="" selected>Sort</option>
-            <option value="popularity.desc">Popularity</option>
-            <option value="vote_average.desc">Votes Average</option>
-            <option value="primary_release_date.desc">Release Date</option>
-            <option value="vote_count.desc">Vote count</option>
+            <option class="capitalize" *ngFor="let option of sortOptions" [value]="option.value">{{ option.label }}</option>
         </select>
     </div>
 </div>

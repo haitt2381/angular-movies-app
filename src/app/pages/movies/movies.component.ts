@@ -3,7 +3,7 @@ import {MovieService} from "../../services/movie.service";
 import {MoviesResponse} from "../../shared/model/movies-response";
 import {Discover} from "../../shared/enum/discover";
 import {ActivatedRoute, Router} from "@angular/router";
-import {checkEnum} from "../../shared/util/tool";
+import * as Tool from "../../shared/util/tool";
 import {Movie} from "../../shared/model/movie";
 import {GetMoviesRequest} from "../../shared/model/get-movies-request";
 import {SortMovie} from "../../shared/enum/sort-movie";
@@ -21,6 +21,7 @@ export class MoviesComponent implements OnInit {
   sortActive: string = '';
   isLoading: boolean = false;
   params: GetMoviesRequest = {};
+  sortOptions: any[] = [];
   
   constructor(
       private movieService: MovieService,
@@ -28,24 +29,39 @@ export class MoviesComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router
   ) {
+    this.sortOptions = Object.keys(SortMovie).map(key => {
+      return {label: Tool.capitalizeFirstLetter(key.replaceAll('_', ' ')), value: Tool.getEnumValue(SortMovie, key)}
+    });
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: GetMoviesRequest) => {
+      this.params = params;
       this.loadingService.startLoading();
-      if(params.discover) {
-        let discover = checkEnum(Discover, params.discover, Discover.POPULAR);
+      if(Object.keys(params).length === 0) {
+        this.loadMoviesByDiscover(Discover.POPULAR, true);
+        this.router.navigate([], { queryParams: {discover: Discover.POPULAR}, queryParamsHandling: 'merge'}).then();
+      } else if(params.discover) {
+        let discover = Tool.checkEnum(Discover, params.discover, Discover.POPULAR);
         this.discover = discover;
         this.loadMoviesByDiscover(discover, true);
+      } else if(params.query) {
+        this.loadMoviesQuery(params.query, true);
       } else {
-        this.sortActive = checkEnum(SortMovie, params.sort_by);
+        this.sortActive = Tool.checkEnum(SortMovie, params.sort_by);
         this.loadMovies(params, true);
         this.discover = '';
       }
     });
   }
 
-  private loadMoviesByDiscover(discover: string, isReloadPage: boolean,page?: number) {
+  private loadMoviesQuery(query: string, isReloadPage: boolean, page?: number) {
+    this.movieService.getMoviesQuery(query, page).subscribe(resp => {
+      this.handleLoadMovies(isReloadPage, resp);
+    });
+  }
+
+  private loadMoviesByDiscover(discover: string, isReloadPage: boolean, page?: number) {
     this.movieService.getPopularMovies(discover, page).subscribe(resp => {
       this.handleLoadMovies(isReloadPage, resp);
     });
@@ -74,7 +90,7 @@ export class MoviesComponent implements OnInit {
     let valueSort: string | null = ($event.target as HTMLInputElement).value;
     valueSort = valueSort.trim() !== '' ? valueSort : null;
     this.router.navigate([], {
-      queryParams: {sort_by: valueSort, discover: null},
+      queryParams: {sort_by: valueSort, discover: null, query: null},
       queryParamsHandling: 'merge',
     }).then();
   }
@@ -91,14 +107,14 @@ export class MoviesComponent implements OnInit {
     if (scrolled > scrollable - 1000) {
       this.isLoading = true;
       let nextPage = this.moviesResponse.page + 1;
-      if(checkEnum(Discover, this.discover)) {
+      if(Tool.checkEnum(Discover, this.discover)) {
         this.loadMoviesByDiscover(this.discover, false, nextPage);
+      } else if (this.params.query){
+        this.loadMoviesQuery(this.params.query, false, nextPage);
       } else {
         this.params.page = nextPage;
         this.loadMovies(this.params, false);
       }
     }
   }
-
-  protected readonly Math = Math;
 }

@@ -18,10 +18,10 @@ export class MovieService {
     }
     
     getPopularMovies(discover: string, page?: number): Observable<any> {
-        page = page ?? 1;
         discover = Tool.checkEnum(Discover, discover, Discover.POPULAR);
         let headers = this.authService.getHeaderWithAuth();
-        return this.http.get(`https://api.themoviedb.org/3/movie/${discover}?language=en-US&page=${page}`, {headers})
+        let params = this.createQuery({page});
+        return this.http.get(`https://api.themoviedb.org/3/movie/${discover}`, {headers, params})
     }
     
     getRecommendationMovies(movieId: number | string): Observable<any> {
@@ -29,25 +29,38 @@ export class MovieService {
         return this.http.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations`, {headers})
     }
     
-    getMovies(request: GetMoviesRequest): Observable<any> {
+    getMoviesQuery(query: string, page?: number): Observable<any> {
         let headers = this.authService.getHeaderWithAuth();
-        let params = new HttpParams()
-            .append('language', 'en-US')
-            .append('page', request.page ? request.page : 1);
-        if(request.sort_by) {
-            params.append('sort_by', request.sort_by)
-        }
-        
-        if(request.genre_id) {
-            params.append('with_genres', request.genre_id)
-        }
-        
-        return this.http.get(`https://api.themoviedb.org/3/discover/movie`, {headers, params})
+        let params = this.createQuery({query, page});
+        return this.http.get(`https://api.themoviedb.org/3/search/movie`, {headers, params});
     }
     
+    getMovies(request: GetMoviesRequest): Observable<any> {
+        let headers = this.authService.getHeaderWithAuth();
+        let params = this.createQuery(request);
+        return this.http.get(`https://api.themoviedb.org/3/discover/movie`, {headers, params})
+    }
+
     getMovie(id: string | null): Observable<any> {
         let headers = this.authService.getHeaderWithAuth();
         return  this.http.get(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, {headers});
     }
-    
+
+    private createQuery(request: GetMoviesRequest) {
+        let params = new HttpParams()
+          .append('language', 'en-US')
+          .append('page', request.page ?? 1);
+        if (request.sort_by) {
+            params = params.append('sort_by', request.sort_by)
+        }
+        if(request.genre_id) {
+            params = params.append('with_genres', request.genre_id)
+        }
+        if(request.query) {
+            params = params.append('query', request.query)
+        }
+        return params;
+    }
+
+
 }

@@ -35,7 +35,10 @@
                 <ul>
                     <div class="form-control">
                         <label class="label cursor-pointer justify-start" *ngFor="let genre of genres">
-                            <input type="radio" name="genres" class="radio radio-sm radio-accent" [value]="genre.id" (change)="onGenreChange($event)"/>
+                            <input type="radio" name="genres" class="radio radio-sm radio-accent" [value]="genre.id" 
+                                   (change)="onGenreChange($event)"
+                                   [checked]="genre.id == genreSelected"
+                            />
                             <span class="label-text text-accent">&nbsp; {{genre.name}}</span>
                         </label>
                     </div>

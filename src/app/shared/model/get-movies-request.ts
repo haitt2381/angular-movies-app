@@ -4,4 +4,5 @@ export interface GetMoviesRequest {
     sort_by?: string;
     genre_id?: number;
     discover?: string;
+    query?: string;
 }
