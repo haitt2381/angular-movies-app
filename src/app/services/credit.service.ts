@@ -18,4 +18,9 @@ export class CreditService {
     let headers = this.authService.getHeaderWithAuth();
     return this.http.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, {headers})
   }
+  
+  getPersonById(personId: any): Observable<any> {
+    let headers = this.authService.getHeaderWithAuth();
+    return this.http.get(`https://api.themoviedb.org/3/person/${personId}`, {headers})
+  }
 }

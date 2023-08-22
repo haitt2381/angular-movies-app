@@ -13,6 +13,7 @@ import { MovieDetailComponent } from './pages/movies/movie-detail/movie-detail.c
 import { RatingComponent } from './pages/movies/rating/rating.component';
 import { MovieComponent } from './pages/movies/movie/movie.component';
 import { LoadingComponent } from './shared/UI/loading/loading.component';
+import { ActorComponent } from './pages/actor/actor.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoadingComponent } from './shared/UI/loading/loading.component';
     MovieDetailComponent,
     RatingComponent,
     MovieComponent,
-    LoadingComponent
+    LoadingComponent,
+    ActorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div class="card bg-base-100 shadow-sm grid grid-cols-3 gap-4 w-10/12 mx-auto ">
+    <div class="col-span-1 relative">
+        <img class="object-cover h-full w-full" [src]='"https://www.themoviedb.org/t/p/w300_and_h450_bestv2/"+person.profile_path' alt="Movie"/>
+    </div>
+    <div class="card-body col-span-2 flex flex-col">
+        <div class="flex-grow space-y-6">
+            <div class="uppercase text-2xl font-bold">
+                <h2>{{person.name}}</h2>
+                <h4 class="text-sm opacity-50">{{person.birthday}}</h4>
+            </div>
+            <div>
+                <h3 class="uppercase font-bold">The Biography</h3>
+                <p class="opacity-50" *ngIf="person.biography.length !== 0"> {{person.biography}} </p>
+                <p class="opacity-50" *ngIf="person.biography.length === 0"> This actor doesn't have a biography. </p>
+            </div>
+        </div>
+        <div class="card-actions justify-between">
+            <button class="btn btn-outline btn-accent btn-sm" (click)="window.open('https://www.imdb.com/name/'+person.imdb_id)"><fa-icon [icon]="faFilm"></fa-icon> IMDB</button>
+
+            <button class="btn btn-accent btn-sm"
+                    (click)="onBack()"
+            ><span class="transform rotate-90">&downarrow;</span> Back</button>
+        </div>
+    </div>
+</div>
+
+<div class="mt-6" *ngIf="recommendedMovies?.length !== 0">
+    <h2 class="uppercase text-2xl font-bold">{{person.name}} IN</h2>
+    <h3 class="uppercase text-md font-bold opacity-50">Movies</h3>
+    <div class="flex flex-wrap">
+        <app-movie class="flex-auto" [movie]="movieRecommended" *ngFor="let movieRecommended of recommendedMovies"></app-movie>
+    </div>
+</div>

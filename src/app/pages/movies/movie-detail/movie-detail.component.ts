@@ -87,6 +87,10 @@ export class MovieDetailComponent implements OnInit, OnDestroy{
 
   }
 
+  onGetActor(castId: number) {
+    this.router.navigate(['/actor', castId]).then();
+  }
+  
   onBack() {
     this.router.navigate(['/movies']).then();
   }

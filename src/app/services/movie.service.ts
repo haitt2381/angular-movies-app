@@ -35,6 +35,11 @@ export class MovieService {
         return this.http.get(`https://api.themoviedb.org/3/search/movie`, {headers, params});
     }
     
+    getMoviesByPerson(personId: any): Observable<any> {
+        let headers = this.authService.getHeaderWithAuth();
+        return this.http.get(`https://api.themoviedb.org/3/person/${personId}/movie_credits`, {headers});
+    }
+    
     getMovies(request: GetMoviesRequest): Observable<any> {
         let headers = this.authService.getHeaderWithAuth();
         let params = this.createQuery(request);
