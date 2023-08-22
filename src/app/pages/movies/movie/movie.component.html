@@ -1,10 +1,9 @@
-<div class="card flex-auto m-4 w-72 bg-base-100 shadow text-center hover:shadow-accent/75 hover:cursor-pointer static"
+<div class="card bg-base-100 w-72 shadow text-center hover:shadow-accent/75 hover:cursor-pointer static"
      (click)="getDetailMovie(movie.id)"
 >
-    <figure><img [src]='"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/"+movie.poster_path'
-                 [alt]="movie.title + ' image'" (error)="onImageError($event)"/></figure>
+    <figure><img [src]='"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/"+movie.poster_path' [alt]="movie.title + ' image'" (error)="onImageError($event)"/></figure>
     <div class="card-body p-4">
-        <p class="text-ellipsis overflow-hidden font-semibold uppercase">
+        <p class="overflow-hidden font-semibold uppercase truncate hover:text-ellipsis">
             {{movie.title}}
         </p>
         <app-rating [vote_average]="movie.vote_average" [id]="movie.id"></app-rating>
